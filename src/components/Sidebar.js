@@ -128,19 +128,31 @@ const Sidebar = () => {
                 Analysis Tools
               </h3>
               <div className="space-y-2">
-                <button className="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition-colors flex items-center">
+                <button 
+                  onClick={() => handleOpenModal('performance-analysis')}
+                  className="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition-colors flex items-center"
+                >
                   <TrendingUp className="w-4 h-4 mr-2" />
                   Performance Analysis
                 </button>
-                <button className="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition-colors flex items-center">
+                <button 
+                  onClick={() => handleOpenModal('volume-analysis')}
+                  className="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition-colors flex items-center"
+                >
                   <BarChart3 className="w-4 h-4 mr-2" />
                   Volume Analysis
                 </button>
-                <button className="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition-colors flex items-center">
+                <button 
+                  onClick={() => handleOpenModal('volatility-analysis')}
+                  className="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition-colors flex items-center"
+                >
                   <Activity className="w-4 h-4 mr-2" />
                   Volatility Analysis
                 </button>
-                <button className="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition-colors flex items-center">
+                <button 
+                  onClick={() => handleOpenModal('pattern-recognition')}
+                  className="w-full text-left px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition-colors flex items-center"
+                >
                   <Eye className="w-4 h-4 mr-2" />
                   Pattern Recognition
                 </button>

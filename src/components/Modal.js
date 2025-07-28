@@ -5,6 +5,10 @@ import { closeModal } from '../store/slices/uiSlice';
 import { setAlerts } from '../store/slices/uiSlice';
 import ExportModal from './ExportModal';
 import AlertSystem from './AlertSystem';
+import PerformanceAnalysis from './PerformanceAnalysis';
+import VolumeAnalysis from './VolumeAnalysis';
+import VolatilityAnalysis from './VolatilityAnalysis';
+import PatternRecognition from './PatternRecognition';
 
 const Modal = ({ type }) => {
   const dispatch = useDispatch();
@@ -40,6 +44,91 @@ const Modal = ({ type }) => {
           </div>
           <div className="p-6">
             <AlertSystem />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Analysis tool modals
+  if (type === 'performance-analysis') {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+          <div className="flex items-center justify-between p-6 border-b">
+            <h2 className="text-xl font-semibold text-gray-900">Performance Analysis</h2>
+            <button
+              onClick={handleClose}
+              className="text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+          <div className="p-6">
+            <PerformanceAnalysis />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'volume-analysis') {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+          <div className="flex items-center justify-between p-6 border-b">
+            <h2 className="text-xl font-semibold text-gray-900">Volume Analysis</h2>
+            <button
+              onClick={handleClose}
+              className="text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+          <div className="p-6">
+            <VolumeAnalysis />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'volatility-analysis') {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+          <div className="flex items-center justify-between p-6 border-b">
+            <h2 className="text-xl font-semibold text-gray-900">Volatility Analysis</h2>
+            <button
+              onClick={handleClose}
+              className="text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+          <div className="p-6">
+            <VolatilityAnalysis />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'pattern-recognition') {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-lg shadow-xl max-w-6xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+          <div className="flex items-center justify-between p-6 border-b">
+            <h2 className="text-xl font-semibold text-gray-900">Pattern Recognition</h2>
+            <button
+              onClick={handleClose}
+              className="text-gray-400 hover:text-gray-600 transition-colors"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
+          <div className="p-6">
+            <PatternRecognition />
           </div>
         </div>
       </div>

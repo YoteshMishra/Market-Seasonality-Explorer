@@ -4,7 +4,7 @@ const initialState = {
   theme: 'light', // 'light', 'dark', 'high-contrast'
   sidebarOpen: false,
   modalOpen: false,
-  modalType: null, // 'details', 'export', 'settings', 'filters'
+  modalType: null, // 'details', 'export', 'settings', 'filters', 'performance-analysis', 'volume-analysis', 'volatility-analysis', 'pattern-recognition'
   tooltip: {
     visible: false,
     content: '',
