@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Palette, Check, ChevronDown } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { Palette, ChevronDown } from 'lucide-react';
 import { setTheme } from '../store/slices/uiSlice';
 
 const themes = [
@@ -30,8 +31,20 @@ const ThemeSwitcher = () => {
   const dispatch = useDispatch();
   const { theme } = useSelector(state => state.ui);
   const [open, setOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
   const buttonRef = useRef(null);
   const dropdownRef = useRef(null);
+
+  // Calculate dropdown position
+  useEffect(() => {
+    if (open && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + window.scrollY + 8,
+        left: rect.left + window.scrollX,
+      });
+    }
+  }, [open]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -55,11 +68,20 @@ const ThemeSwitcher = () => {
 
   const currentTheme = themes.find(t => t.id === theme) || themes[0];
 
+  const handleButtonClick = () => {
+    setOpen(!open);
+  };
+
+  const handleThemeSelect = (themeId) => {
+    dispatch(setTheme(themeId));
+    setOpen(false);
+  };
+
   return (
     <div className="relative inline-block text-left">
       <button
         ref={buttonRef}
-        onClick={() => setOpen((v) => !v)}
+        onClick={handleButtonClick}
         className="flex items-center justify-between w-full space-x-2 px-4 py-2 rounded-lg border border-gray-300 bg-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
         aria-haspopup="listbox"
         aria-expanded={open}
@@ -73,33 +95,32 @@ const ThemeSwitcher = () => {
         </span>
         <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
-      {open && (
+      {open && createPortal(
         <div
           ref={dropdownRef}
-          className="absolute left-0 mt-2 min-w-[220px] w-max rounded-lg border border-gray-200 shadow-xl bg-white ring-1 ring-black ring-opacity-5 z-50"
+          className="fixed min-w-[220px] w-max rounded-lg border border-gray-200 shadow-xl bg-white ring-1 ring-black ring-opacity-5 z-[9999]"
+          style={{
+            top: dropdownPosition.top,
+            left: dropdownPosition.left,
+          }}
         >
           <div className="py-2">
             {themes.map((t) => (
               <button
                 key={t.id}
-                onClick={() => {
-                  dispatch(setTheme(t.id));
-                  setOpen(false);
-                }}
-                className={`w-full flex items-center px-4 py-2 space-x-3 text-left text-sm transition-colors focus:outline-none hover:bg-gray-100 ${
-                  theme === t.id ? 'font-semibold bg-blue-50' : ''
-                }`}
+                onClick={() => handleThemeSelect(t.id)}
+                className="w-full flex items-center px-4 py-2 space-x-3 text-left text-sm transition-colors focus:outline-none hover:bg-gray-100"
                 role="option"
                 aria-selected={theme === t.id}
                 tabIndex={0}
               >
                 <span className={`w-3 h-3 rounded-full border border-gray-200 ${t.color}`}></span>
                 <span className="flex-1 whitespace-normal break-words">{t.name}</span>
-                {theme === t.id && <Check className="w-4 h-4 text-blue-600" />}
               </button>
             ))}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
