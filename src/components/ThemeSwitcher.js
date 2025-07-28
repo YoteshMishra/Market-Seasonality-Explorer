@@ -1,180 +1,103 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Palette, Eye } from 'lucide-react';
+import { Palette, Check, ChevronDown } from 'lucide-react';
 import { setTheme } from '../store/slices/uiSlice';
+
+const themes = [
+  {
+    id: 'default',
+    name: 'Default',
+    color: 'bg-blue-500',
+  },
+  {
+    id: 'high-contrast',
+    name: 'High Contrast',
+    color: 'bg-yellow-500',
+  },
+  {
+    id: 'colorblind-friendly',
+    name: 'Colorblind Friendly',
+    color: 'bg-green-500',
+  },
+  {
+    id: 'dark',
+    name: 'Dark',
+    color: 'bg-gray-800',
+  },
+];
 
 const ThemeSwitcher = () => {
   const dispatch = useDispatch();
   const { theme } = useSelector(state => state.ui);
-  const [isOpen, setIsOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const buttonRef = useRef(null);
+  const dropdownRef = useRef(null);
 
-  const themes = [
-    {
-      id: 'default',
-      name: 'Default',
-      description: 'Standard color scheme',
-      colors: {
-        primary: 'blue',
-        volatility: {
-          low: 'green',
-          medium: 'yellow',
-          high: 'red'
-        },
-        performance: {
-          positive: 'green',
-          negative: 'red',
-          neutral: 'gray'
-        }
-      }
-    },
-    {
-      id: 'high-contrast',
-      name: 'High Contrast',
-      description: 'Enhanced visibility',
-      colors: {
-        primary: 'purple',
-        volatility: {
-          low: 'emerald',
-          medium: 'amber',
-          high: 'rose'
-        },
-        performance: {
-          positive: 'emerald',
-          negative: 'rose',
-          neutral: 'slate'
-        }
-      }
-    },
-    {
-      id: 'colorblind-friendly',
-      name: 'Colorblind Friendly',
-      description: 'Accessible color scheme',
-      colors: {
-        primary: 'indigo',
-        volatility: {
-          low: 'teal',
-          medium: 'orange',
-          high: 'pink'
-        },
-        performance: {
-          positive: 'teal',
-          negative: 'pink',
-          neutral: 'gray'
-        }
-      }
-    },
-    {
-      id: 'dark',
-      name: 'Dark Mode',
-      description: 'Dark theme for low light',
-      colors: {
-        primary: 'cyan',
-        volatility: {
-          low: 'emerald',
-          medium: 'yellow',
-          high: 'red'
-        },
-        performance: {
-          positive: 'emerald',
-          negative: 'red',
-          neutral: 'gray'
-        }
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target)
+      ) {
+        setOpen(false);
       }
     }
-  ];
+    if (open) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [open]);
 
   const currentTheme = themes.find(t => t.id === theme) || themes[0];
 
-  const handleThemeChange = (themeId) => {
-    dispatch(setTheme(themeId));
-    setIsOpen(false);
-  };
-
-  const getColorPreview = (colorName) => {
-    const colorMap = {
-      blue: 'bg-blue-500',
-      purple: 'bg-purple-500',
-      indigo: 'bg-indigo-500',
-      cyan: 'bg-cyan-500',
-      green: 'bg-green-500',
-      emerald: 'bg-emerald-500',
-      teal: 'bg-teal-500',
-      yellow: 'bg-yellow-500',
-      amber: 'bg-amber-500',
-      orange: 'bg-orange-500',
-      red: 'bg-red-500',
-      rose: 'bg-rose-500',
-      pink: 'bg-pink-500',
-      gray: 'bg-gray-500',
-      slate: 'bg-slate-500'
-    };
-    return colorMap[colorName] || 'bg-gray-500';
-  };
-
   return (
-    <div className="relative">
+    <div className="relative inline-block text-left">
       <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        ref={buttonRef}
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center justify-between w-full space-x-2 px-4 py-2 rounded-lg border border-gray-300 bg-white shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label="Select theme"
+        type="button"
       >
-        <Palette className="w-4 h-4" />
-        <span>Theme</span>
-        <div className={`w-3 h-3 rounded-full ${getColorPreview(currentTheme.colors.primary)}`} />
+        <span className="flex items-center space-x-2">
+          <Palette className="w-5 h-5 text-gray-600" />
+          <span className="font-medium text-gray-800 text-sm">Theme</span>
+          <span className={`w-3 h-3 rounded-full border border-gray-200 ${currentTheme.color}`}></span>
+        </span>
+        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
-
-      {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
-          <div className="p-4">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Choose Theme</h3>
-            
-            <div className="space-y-3">
-              {themes.map((themeOption) => (
-                <button
-                  key={themeOption.id}
-                  onClick={() => handleThemeChange(themeOption.id)}
-                  className={`w-full p-4 text-left rounded-lg border-2 transition-all ${
-                    theme === themeOption.id
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <div>
-                      <div className="font-medium text-gray-900">{themeOption.name}</div>
-                      <div className="text-sm text-gray-500">{themeOption.description}</div>
-                    </div>
-                    <div className={`w-4 h-4 rounded-full ${getColorPreview(themeOption.colors.primary)}`} />
-                  </div>
-                  
-                  {/* Color Preview */}
-                  <div className="flex items-center space-x-2">
-                    <div className="flex space-x-1">
-                      <div className={`w-3 h-3 rounded ${getColorPreview(themeOption.colors.volatility.low)}`} />
-                      <div className={`w-3 h-3 rounded ${getColorPreview(themeOption.colors.volatility.medium)}`} />
-                      <div className={`w-3 h-3 rounded ${getColorPreview(themeOption.colors.volatility.high)}`} />
-                    </div>
-                    <span className="text-xs text-gray-500">Volatility</span>
-                  </div>
-                  
-                  <div className="flex items-center space-x-2 mt-1">
-                    <div className="flex space-x-1">
-                      <div className={`w-3 h-3 rounded ${getColorPreview(themeOption.colors.performance.positive)}`} />
-                      <div className={`w-3 h-3 rounded ${getColorPreview(themeOption.colors.performance.negative)}`} />
-                      <div className={`w-3 h-3 rounded ${getColorPreview(themeOption.colors.performance.neutral)}`} />
-                    </div>
-                    <span className="text-xs text-gray-500">Performance</span>
-                  </div>
-                </button>
-              ))}
-            </div>
-
-            {/* Accessibility Info */}
-            <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-              <div className="flex items-center space-x-2 text-sm text-gray-600">
-                <Eye className="w-4 h-4" />
-                <span>Accessibility features available</span>
-              </div>
-            </div>
+      {open && (
+        <div
+          ref={dropdownRef}
+          className="absolute left-0 mt-2 min-w-[220px] w-max rounded-lg border border-gray-200 shadow-xl bg-white ring-1 ring-black ring-opacity-5 z-50"
+        >
+          <div className="py-2">
+            {themes.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => {
+                  dispatch(setTheme(t.id));
+                  setOpen(false);
+                }}
+                className={`w-full flex items-center px-4 py-2 space-x-3 text-left text-sm transition-colors focus:outline-none hover:bg-gray-100 ${
+                  theme === t.id ? 'font-semibold bg-blue-50' : ''
+                }`}
+                role="option"
+                aria-selected={theme === t.id}
+                tabIndex={0}
+              >
+                <span className={`w-3 h-3 rounded-full border border-gray-200 ${t.color}`}></span>
+                <span className="flex-1 whitespace-normal break-words">{t.name}</span>
+                {theme === t.id && <Check className="w-4 h-4 text-blue-600" />}
+              </button>
+            ))}
           </div>
         </div>
       )}
