@@ -37,15 +37,25 @@ const Sidebar = () => {
 
       {/* Sidebar */}
       <div
-        className={`fixed left-0 top-0 h-full w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
+        className={`fixed left-0 top-0 h-full w-64 max-w-full bg-white shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0 lg:static lg:z-auto`}
       >
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">Market Explorer</h2>
-            <p className="text-sm text-gray-500 mt-1">Financial Data Analysis</p>
+          <div className="p-4 sm:p-6 border-b border-gray-200 flex items-center justify-between">
+            <div>
+              <h2 className="text-lg font-semibold text-gray-900">Market Explorer</h2>
+              <p className="text-sm text-gray-500 mt-1">Financial Data Analysis</p>
+            </div>
+            {/* Mobile Close Button */}
+            <button
+              className="lg:hidden ml-2 p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={handleCloseSidebar}
+              aria-label="Close sidebar"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
           </div>
 
           {/* Content */}

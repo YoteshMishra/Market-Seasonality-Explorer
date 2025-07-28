@@ -227,11 +227,11 @@ const Calendar = () => {
   };
 
   return (
-    <div className="card">
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <h2 className="text-2xl font-bold text-gray-900">Market Calendar</h2>
-          <div className="flex items-center space-x-2">
+    <div className="card p-2 sm:p-4 md:p-6">
+      <div className="mb-4 sm:mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 mb-2">
+          <h2 className="text-lg sm:text-2xl font-bold text-gray-900">Market Calendar</h2>
+          <div className="flex flex-wrap items-center gap-2">
             {/* View Mode Toggle */}
             <div className="flex bg-gray-100 rounded-lg p-1">
               <button
@@ -293,7 +293,7 @@ const Calendar = () => {
             {/* Range Selection Toggle */}
             <button
               onClick={() => setIsSelectingRange(!isSelectingRange)}
-              className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+              className={`px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-medium transition-colors ${
                 isSelectingRange 
                   ? 'bg-blue-600 text-white' 
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -303,7 +303,7 @@ const Calendar = () => {
             </button>
           </div>
         </div>
-        <p className="text-gray-600">
+        <p className="text-xs sm:text-sm text-gray-600">
           Interactive calendar showing {viewMode} volatility, liquidity, and performance data for {selectedSymbol}
           {isSelectingRange && <span className="text-blue-600 font-medium"> - Click to select range start</span>}
         </p>
@@ -314,7 +314,7 @@ const Calendar = () => {
 
       {/* Calendar Grid */}
       <div 
-        className="grid grid-cols-7 gap-1 transition-transform duration-200"
+        className="grid grid-cols-7 gap-0.5 sm:gap-1 transition-transform duration-200"
         style={{ transform: `scale(${zoomLevel})`, transformOrigin: 'top left' }}
       >
         {/* Day Headers */}
@@ -359,9 +359,9 @@ const Calendar = () => {
       </div>
 
       {/* Legend */}
-      <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-        <h3 className="text-sm font-medium text-gray-700 mb-3">Legend</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+      <div className="mt-4 sm:mt-6 p-2 sm:p-4 bg-gray-50 rounded-lg">
+        <h3 className="text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">Legend</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 text-xs">
           <div className="space-y-2">
             <div className="font-medium text-gray-600">Volatility</div>
             <div className="flex items-center space-x-2">
@@ -441,9 +441,9 @@ const Calendar = () => {
       </div>
 
       {/* Keyboard Shortcuts Help */}
-      <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-        <h4 className="text-sm font-medium text-blue-700 mb-2">Keyboard Shortcuts</h4>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs text-blue-600">
+      <div className="mt-2 sm:mt-4 p-2 sm:p-3 bg-blue-50 rounded-lg">
+        <h4 className="text-xs sm:text-sm font-medium text-blue-700 mb-1 sm:mb-2">Keyboard Shortcuts</h4>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-1 sm:gap-2 text-xs text-blue-600">
           <div>← → : Navigate days</div>
           <div>↑ ↓ : Navigate weeks</div>
           <div>Enter : Toggle range selection</div>

@@ -76,10 +76,10 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
-      <div className="flex items-center justify-between">
+    <header className="bg-white shadow-sm border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
         {/* Left Section */}
-        <div className="flex items-center space-x-4">
+        <div className="flex flex-col xs:flex-row items-start xs:items-center space-y-2 xs:space-y-0 xs:space-x-4 w-full overflow-x-auto">
           {/* Mobile Menu Button */}
           <button
             onClick={() => dispatch(toggleSidebar())}
@@ -97,11 +97,9 @@ const Header = () => {
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            
-            <h1 className="text-xl font-semibold text-gray-900">
+            <h1 className="text-lg sm:text-xl font-semibold text-gray-900">
               {getNavigationLabel()}
             </h1>
-            
             <button
               onClick={() => handleNavigate('next')}
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -112,7 +110,7 @@ const Header = () => {
           </div>
 
           {/* View Mode Toggle */}
-          <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
+          <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1 mt-2 xs:mt-0">
             {[
               { id: 'daily', name: 'Daily' },
               { id: 'weekly', name: 'Weekly' },
@@ -121,7 +119,7 @@ const Header = () => {
               <button
                 key={mode.id}
                 onClick={() => handleViewModeChange(mode.id)}
-                className={`px-3 py-1 rounded-md text-sm font-medium transition-colors flex items-center space-x-1 ${
+                className={`px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-colors flex items-center space-x-1 ${
                   viewMode === mode.id
                     ? 'bg-white text-gray-900 shadow-sm'
                     : 'text-gray-600 hover:text-gray-900'
@@ -135,18 +133,17 @@ const Header = () => {
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-4 mt-2 sm:mt-0 w-full sm:w-auto overflow-x-auto">
           {/* Symbol Display */}
           <div className="hidden md:flex items-center space-x-2">
-            <span className="text-sm text-gray-500">Symbol:</span>
+            <span className="text-xs sm:text-sm text-gray-500">Symbol:</span>
             <span className="font-medium text-gray-900">{selectedSymbol}</span>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1 sm:space-x-2">
             {/* Theme Switcher */}
             <ThemeSwitcher />
-
             <button
               onClick={handleExport}
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -155,7 +152,6 @@ const Header = () => {
             >
               <Download className="w-5 h-5" />
             </button>
-
             <button
               onClick={handleSettings}
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -164,7 +160,6 @@ const Header = () => {
             >
               <Settings className="w-5 h-5" />
             </button>
-
             <button
               onClick={handleThemeToggle}
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -177,7 +172,6 @@ const Header = () => {
                 <Sun className="w-5 h-5" />
               )}
             </button>
-
             <button
               className="p-2 rounded-lg hover:bg-gray-100 transition-colors relative"
               aria-label="Notifications"

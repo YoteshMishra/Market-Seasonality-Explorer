@@ -35,26 +35,26 @@ function App() {
 
   return (
     <div className={`min-h-screen bg-gray-50 transition-colors duration-200 ${theme === 'dark' ? 'dark' : ''}`}>
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex flex-col lg:flex-row h-screen overflow-hidden">
         {/* Sidebar */}
         <Sidebar />
         
         {/* Main Content */}
-        <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
+        <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarOpen ? 'ml-0 lg:ml-64' : 'ml-0'}`}>
           {/* Header */}
           <Header />
           
           {/* Main Content Area */}
-          <main className="flex-1 overflow-auto p-6">
-            <div className="max-w-7xl mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <main className="flex-1 overflow-auto p-2 sm:p-4 md:p-6">
+            <div className="max-w-7xl mx-auto w-full">
+              <div className="grid grid-cols-1 gap-4 md:gap-6 md:grid-cols-3">
                 {/* Calendar Section */}
-                <div className="lg:col-span-2">
+                <div className="md:col-span-2">
                   <Calendar />
                 </div>
                 
                 {/* Dashboard Section */}
-                <div className="lg:col-span-1">
+                <div className="md:col-span-1">
                   <Dashboard />
                 </div>
               </div>

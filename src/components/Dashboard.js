@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
 import { TrendingUp, TrendingDown, Activity, BarChart3, DollarSign, Target } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import OrderbookPanel from './OrderbookPanel';
 
 const Dashboard = () => {
   const { selectedDate } = useSelector(state => state.calendar);
@@ -87,16 +88,17 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
+      <OrderbookPanel />
       {/* Selected Date Details */}
       {selectedDateData && (
         <div className="card">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-4">
             {format(selectedDate, 'MMMM dd, yyyy')} - {selectedSymbol}
           </h3>
           
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <div className="space-y-2">
+          <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 sm:gap-4 mb-4 sm:mb-6">
+            <div className="space-y-1 sm:space-y-2">
               <div className="flex justify-between">
                 <span className="text-gray-600">Open</span>
                 <span className="font-medium">${selectedDateData.open.toFixed(2)}</span>
@@ -115,7 +117,7 @@ const Dashboard = () => {
               </div>
             </div>
             
-            <div className="space-y-2">
+            <div className="space-y-1 sm:space-y-2">
               <div className="flex justify-between">
                 <span className="text-gray-600">Volume</span>
                 <span className="font-medium">{(selectedDateData.volume / 1000000).toFixed(2)}M</span>
@@ -141,9 +143,9 @@ const Dashboard = () => {
           </div>
 
           {/* Technical Indicators */}
-          <div className="border-t pt-4">
-            <h4 className="text-sm font-medium text-gray-700 mb-3">Technical Indicators</h4>
-            <div className="grid grid-cols-3 gap-4 text-sm">
+          <div className="border-t pt-2 sm:pt-4">
+            <h4 className="text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">Technical Indicators</h4>
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 text-xs sm:text-sm">
               <div>
                 <span className="text-gray-600">RSI</span>
                 <div className="font-medium">{selectedDateData.rsi.toFixed(1)}</div>
@@ -163,7 +165,7 @@ const Dashboard = () => {
 
       {/* Summary Statistics */}
       {summaryStats && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-2 sm:gap-4 md:grid-cols-2">
           <StatCard
             title="Average Price"
             value={`$${summaryStats.avgPrice.toFixed(2)}`}
@@ -195,7 +197,7 @@ const Dashboard = () => {
       {/* Price Chart */}
       {chartData.length > 0 && (
         <div className="card">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Price Trend (Last 30 Days)</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-4">Price Trend (Last 30 Days)</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -211,7 +213,7 @@ const Dashboard = () => {
       {/* Volume Chart */}
       {chartData.length > 0 && (
         <div className="card">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Volume Trend (Last 30 Days)</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-4">Volume Trend (Last 30 Days)</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -226,8 +228,8 @@ const Dashboard = () => {
 
       {/* Market Insights */}
       <div className="card">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Market Insights</h3>
-        <div className="space-y-3 text-sm">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-4">Market Insights</h3>
+        <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
           <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
             <span className="text-green-700">Strong upward momentum</span>
             <TrendingUp className="w-4 h-4 text-green-600" />

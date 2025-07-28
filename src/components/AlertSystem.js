@@ -156,12 +156,12 @@ const AlertSystem = () => {
   };
 
   return (
-    <div className="card">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="text-lg font-semibold text-gray-900">Alert System</h3>
+    <div className="card p-2 sm:p-4 md:p-6">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 sm:mb-6 gap-2 sm:gap-0">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900">Alert System</h3>
         <button
           onClick={() => setShowCreateForm(!showCreateForm)}
-          className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+          className="flex items-center space-x-2 px-2 sm:px-3 py-1 sm:py-2 text-xs sm:text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
         >
           <Plus className="w-4 h-4" />
           <span>New Alert</span>
@@ -170,10 +170,10 @@ const AlertSystem = () => {
 
       {/* Create Alert Form */}
       {showCreateForm && (
-        <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-          <h4 className="text-md font-medium text-gray-900 mb-4">Create New Alert</h4>
+        <div className="mb-4 sm:mb-6 p-2 sm:p-4 bg-gray-50 rounded-lg">
+          <h4 className="text-sm sm:text-md font-medium text-gray-900 mb-2 sm:mb-4">Create New Alert</h4>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Alert Name
@@ -236,7 +236,7 @@ const AlertSystem = () => {
             </div>
           </div>
 
-          <div className="flex justify-end space-x-3 mt-4">
+          <div className="flex justify-end space-x-2 sm:space-x-3 mt-2 sm:mt-4">
             <button
               onClick={() => setShowCreateForm(false)}
               className="px-4 py-2 text-gray-700 bg-gray-200 rounded-lg hover:bg-gray-300 transition-colors"
@@ -255,9 +255,9 @@ const AlertSystem = () => {
 
       {/* Current Values */}
       {currentData && (
-        <div className="mb-6 p-4 bg-blue-50 rounded-lg">
-          <h4 className="text-sm font-medium text-blue-900 mb-3">Current Values</h4>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+        <div className="mb-4 sm:mb-6 p-2 sm:p-4 bg-blue-50 rounded-lg">
+          <h4 className="text-xs sm:text-sm font-medium text-blue-900 mb-1 sm:mb-3">Current Values</h4>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 text-xs sm:text-sm">
             {alertTypes.map(type => (
               <div key={type.id} className="flex items-center space-x-2">
                 {getAlertIcon(type.id)}
@@ -272,8 +272,8 @@ const AlertSystem = () => {
       )}
 
       {/* Alerts List */}
-      <div className="space-y-3">
-        <h4 className="text-md font-medium text-gray-900">Active Alerts</h4>
+      <div className="space-y-2 sm:space-y-3">
+        <h4 className="text-sm sm:text-md font-medium text-gray-900">Active Alerts</h4>
         
         {alerts.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
@@ -289,7 +289,7 @@ const AlertSystem = () => {
             return (
               <div
                 key={alert.id}
-                className={`p-4 border rounded-lg transition-all ${
+                className={`p-2 sm:p-4 border rounded-lg transition-all ${
                   alert.enabled
                     ? 'border-gray-200 bg-white'
                     : 'border-gray-200 bg-gray-50 opacity-60'
@@ -326,7 +326,7 @@ const AlertSystem = () => {
                   </div>
                 </div>
                 
-                <div className="mt-2 text-xs text-gray-500">
+                <div className="mt-1 sm:mt-2 text-xs text-gray-500">
                   Created {format(new Date(alert.createdAt), 'MMM dd, yyyy')}
                 </div>
               </div>
@@ -337,9 +337,9 @@ const AlertSystem = () => {
 
       {/* Alert Statistics */}
       {alerts.length > 0 && (
-        <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-          <h4 className="text-sm font-medium text-gray-900 mb-3">Alert Statistics</h4>
-          <div className="grid grid-cols-3 gap-4 text-sm">
+        <div className="mt-4 sm:mt-6 p-2 sm:p-4 bg-gray-50 rounded-lg">
+          <h4 className="text-xs sm:text-sm font-medium text-gray-900 mb-1 sm:mb-3">Alert Statistics</h4>
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 text-xs sm:text-sm">
             <div>
               <div className="font-medium text-gray-900">{alerts.length}</div>
               <div className="text-gray-500">Total Alerts</div>

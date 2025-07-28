@@ -209,10 +209,10 @@ const ExportModal = () => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between p-6 border-b">
-          <h2 className="text-xl font-semibold text-gray-900">Export Data</h2>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-2 sm:px-0">
+      <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-0 sm:mx-4 max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b">
+          <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Export Data</h2>
           <button
             onClick={() => dispatch(hideModal())}
             className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -221,11 +221,11 @@ const ExportModal = () => {
           </button>
         </div>
 
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-6 space-y-4 sm:space-y-6">
           {/* Export Type Selection */}
           <div>
             <h3 className="text-lg font-medium text-gray-900 mb-4">Export Format</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4">
               {exportOptions.map((option) => {
                 const Icon = option.icon;
                 return (

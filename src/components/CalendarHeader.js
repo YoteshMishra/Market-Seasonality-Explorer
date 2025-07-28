@@ -34,9 +34,9 @@ const CalendarHeader = () => {
   };
 
   return (
-    <div className="flex items-center justify-between mb-6">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 mb-4 sm:mb-6">
       {/* Navigation Controls */}
-      <div className="flex items-center space-x-4">
+      <div className="flex items-center space-x-2 sm:space-x-4">
         <button
           onClick={() => handleNavigate('prev')}
           className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -44,11 +44,9 @@ const CalendarHeader = () => {
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
-
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
           {format(currentDate, 'MMMM yyyy')}
         </h2>
-
         <button
           onClick={() => handleNavigate('next')}
           className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -57,9 +55,8 @@ const CalendarHeader = () => {
           <ChevronRight className="w-5 h-5" />
         </button>
       </div>
-
       {/* View Mode Toggle */}
-      <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
+      <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1 mt-2 sm:mt-0">
         {[
           { mode: 'day', label: 'Day' },
           { mode: 'week', label: 'Week' },
@@ -68,7 +65,7 @@ const CalendarHeader = () => {
           <button
             key={mode}
             onClick={() => handleViewModeChange(mode)}
-            className={`flex items-center space-x-1 px-3 py-1 rounded-md text-sm font-medium transition-colors ${
+            className={`flex items-center space-x-1 px-2 sm:px-3 py-1 rounded-md text-xs sm:text-sm font-medium transition-colors ${
               viewMode === mode
                 ? 'bg-white text-gray-900 shadow-sm'
                 : 'text-gray-600 hover:text-gray-900'

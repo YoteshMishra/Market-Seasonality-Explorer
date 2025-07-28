@@ -105,7 +105,7 @@ const CalendarCell = ({
 
   return (
     <div
-      className={getCellClasses()}
+      className={getCellClasses() + ' min-w-[36px] sm:min-w-[48px] max-w-full p-1 sm:p-2'}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -120,7 +120,7 @@ const CalendarCell = ({
     >
       {/* Date Number and View Mode Icon */}
       <div className="flex items-center justify-between">
-        <span className={`text-sm font-medium ${
+        <span className={`text-xs sm:text-sm font-medium ${
           day.isCurrentMonth ? 'text-gray-900' : 'text-gray-400'
         }`}>
           {format(day.date, 'd')}

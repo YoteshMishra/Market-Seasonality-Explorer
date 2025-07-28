@@ -49,11 +49,11 @@ const NotificationSystem = () => {
   if (notifications.length === 0) return null;
 
   return (
-    <div className="fixed top-4 right-4 z-50 space-y-2">
+    <div className="fixed top-2 right-2 sm:top-4 sm:right-4 z-50 space-y-1 sm:space-y-2 w-[90vw] max-w-xs sm:max-w-sm">
       {notifications.map(notification => (
         <div
           key={notification.id}
-          className={`${getNotificationClasses(notification.type)} animate-slide-up`}
+          className={`${getNotificationClasses(notification.type)} animate-slide-up text-xs sm:text-sm p-2 sm:p-4`}
         >
           <div className="flex items-start">
             <div className="flex-shrink-0 mr-3">
